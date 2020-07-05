@@ -1,0 +1,128 @@
+@import "../../../assets/styles/variables";
+
+#forecast {
+  width: 100%;
+  border-collapse: collapse;
+
+  .item {
+    background: rgba(0, 0, 0, 0.1);
+    display: flex;
+    padding: 0.5em 1em;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5em;
+    border-radius: 0.5em;
+    text-align: center;
+    min-height: 70px;
+    font-size: 1.2em;
+    font-weight: bold;
+
+    > * {
+      flex-basis: 33%;
+
+      &:first-child {
+        text-align: left;
+      }
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+}
+
+.mat-spinner {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+}
+
+
+#initialLoad {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.5em;
+
+  > * {
+    padding: 0.5em;
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border-radius: 0.5em;
+    font-style: italic;
+  }
+}
+
+#today {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .temp {
+    position: relative;
+  }
+
+  .now {
+    font-size: 5em;
+    line-height: 1em;
+    padding: 0 2rem;
+    text-align: center;
+  }
+
+  .min-max {
+    position: absolute;
+    top: 0.5rem;
+    right: 0;
+
+    > * {
+      display: block;
+    }
+  }
+
+  .description {
+    text-transform: capitalize;
+    text-align: center;
+    font-size: 1.5em;
+    margin: 0.5em auto 0.2em;
+  }
+
+  .real-feel {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1em;
+  }
+}
+
+.conditions {
+  margin: 3em 0 1em 0;
+  display: flex;
+  width: 100%;
+
+  > * {
+    flex-basis: 33%;
+    padding: 1em;
+    text-align: center;
+
+    &:not(:first-child) {
+      border-left: 2px solid rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    margin: auto;
+  }
+
+  .value {
+    white-space: nowrap;
+  }
+}
+
+
+
+
+
+
+

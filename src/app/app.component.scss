@@ -1,0 +1,54 @@
+@import "../assets/styles/variables";
+
+#scenery {
+  background-image: url('/assets/images/clear.png');
+  background-color: #93c632;
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: 100% auto;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  filter: grayscale(40%);
+}
+
+$headerSpacing: #{$spacing*2};
+
+header {
+  display: block;
+  text-align: center;
+  // position: -webkit-sticky;
+  // position: sticky;
+  // top: 0;
+  // background-color: rgba(0, 0, 0, 0.1);
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a#settings-link {
+    position: absolute;
+    left: 0;
+    padding: $headerSpacing;
+  }
+
+  a#home-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: $headerSpacing;
+    font-size: 1.2em;
+
+    .mat-icon {
+      margin-right: 5px;
+    }
+  }
+}
+
+main {
+  padding: $spacing;
+}

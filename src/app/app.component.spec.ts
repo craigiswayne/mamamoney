@@ -14,22 +14,24 @@ describe('AppComponent', () => {
     }).compileComponents();
   }));
 
+  const expectedTitle = 'Cape Town';
+
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'playground-angular'`, () => {
+  it(`should have as title '${expectedTitle}'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('playground-angular');
+    expect(app.currentLocation).toEqual(expectedTitle);
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('playground-angular app is running!');
+    expect(compiled.querySelector('header h1').textContent).toContain(expectedTitle);
   });
 });

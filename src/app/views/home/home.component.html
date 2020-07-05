@@ -1,0 +1,50 @@
+<mat-spinner *ngIf="loader" [diameter]="25" color="warn"></mat-spinner>
+<ng-container *ngIf="oneCall else initialLoad">
+    <div id="today">
+        <div class="temp">
+            <span class="now">{{ oneCall?.current.temp | userMetric }}</span>
+            <div class="min-max">
+                <span class="min">{{ oneCall?.daily[0].temp.max | userMetric }}</span>
+                <span class="max">{{ oneCall?.daily[0].temp.min | userMetric }}</span>
+            </div>
+        </div>
+        <div class="description">{{ oneCall?.current.weather[0].description }}</div>
+        <div class="real-feel"><span>Real Feel&reg;</span>&nbsp;{{ oneCall?.current.feels_like | userMetric }}</div>
+        <div class="conditions">
+            <div class="precipitation">
+                <div class="icon">
+                    <img src="/assets/images/umbrella.png" />
+                </div>
+                <div class="value">56%</div>
+            </div>
+            <div class="wind">
+                <div class="icon">
+                    <img src="/assets/images/wind.png" />
+                </div>
+                <div class="value">{{ oneCall.current.wind_speed }} m/s</div>
+            </div>
+            <div class="sun">
+                <div class="icon">
+                    <img src="/assets/images/sun.png" />
+                </div>
+                <div class="value">
+                    <span>{{ oneCall.current.sunrise | unixDate | date:'HH:mm' }}</span>&nbsp;
+                    <span>{{ oneCall.current.sunset | unixDate | date:'HH:mm' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="forecast">
+        <div class="item" *ngFor="let item of oneCall?.daily">
+            <span>{{item.dt | unixDate | date:'EEEE'}}</span>
+            <span><img [src]="item.weather[0].icon | openWeatherIcon" /></span>
+            <span>{{item.temp.min | userMetric }}/{{item.temp.max | userMetric }}</span>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #initialLoad>
+    <div id="initialLoad">
+        <div>Loading...</div>
+    </div>
+</ng-template>

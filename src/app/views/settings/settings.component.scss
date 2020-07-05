@@ -1,0 +1,16 @@
+@import "../../../assets/styles/variables";
+
+form {
+  padding: #{$spacing*4} #{$spacing*2};
+  border-radius: $spacing;
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.mat-form-field {
+  width: 100%;
+  color: black;
+
+  &:not(:first-child) {
+    margin-top: 2em;
+  }
+}
