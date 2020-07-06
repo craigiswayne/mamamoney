@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +9,10 @@ export class AppComponent {
 
   public currentLocation = 'Cape Town';
 
+  @HostBinding('class') get cssClass(){
+    const now = new Date();
+    const hourOfDay = now.getHours();
+    return hourOfDay >= 18 ? 'night' : 'day';
+  }
   constructor(){}
 }

@@ -17,6 +17,7 @@ body {
 img {
   max-width: 100%;
   max-height: 100%;
+  filter: brightness(0) invert(1);
 }
 
 .mat-snack-bar-container.error {

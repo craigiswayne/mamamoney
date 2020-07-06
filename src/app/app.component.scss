@@ -1,8 +1,7 @@
 @import "../assets/styles/variables";
 
 #scenery {
-  background-image: url('/assets/images/clear.png');
-  background-color: #93c632;
+
   background-repeat: no-repeat;
   background-position: left top;
   background-size: 100% auto;
@@ -13,6 +12,16 @@
   width: 100vw;
   height: 100vh;
   //filter: grayscale(40%);
+
+  :host.day & {
+    background-image: url('/assets/images/bg-day-header.png');
+    background-color: #93c632;
+  }
+
+  :host.night & {
+    background-image: url('/assets/images/bg-night-header.jpg');
+    background-color: #292e4e;
+  }
 }
 
 $headerSpacing: #{$spacing*2};
