@@ -3,7 +3,7 @@ import {SettingsService} from '../services/settings/settings.service';
 
 @Pipe({name: 'userMetric'})
 export class UserMetricPipe implements PipeTransform {
-    transform(input: string): number|'?' {
+    transform(input: string): string|'?' {
 
         const kelvin = parseFloat(input);
         const usersMetric = SettingsService.get().metric;
@@ -19,6 +19,6 @@ export class UserMetricPipe implements PipeTransform {
         }
 
         const result = Math.round(converted);
-        return isNaN(result) ? '?' : result;
+        return isNaN(result) ? '?' : `${result}°`;
     }
 }

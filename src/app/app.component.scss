@@ -12,7 +12,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  filter: grayscale(40%);
+  //filter: grayscale(40%);
 }
 
 $headerSpacing: #{$spacing*2};
@@ -51,4 +51,6 @@ header {
 
 main {
   padding: $spacing;
+  max-width: 480px;
+  margin: auto;
 }

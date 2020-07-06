@@ -21,7 +21,9 @@ class CurrentItem {
     readonly wind_speed: number;
     readonly wind_deg: number;
     readonly weather: WeatherOverview[];
-    readonly rain: object;
+    readonly rain: {
+        ['1h'] ?: number
+    };
 }
 
 class ForecastItemTemp {

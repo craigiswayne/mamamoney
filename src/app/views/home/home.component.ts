@@ -5,11 +5,13 @@ import { OpenWeatherService } from '../../services/open-weather/open-weather.ser
 import { concatMap, delay, retryWhen, startWith, switchMap, timeout} from 'rxjs/operators';
 import { SettingsService } from '../../services/settings/settings.service';
 import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
+import {UserMetricPipe} from '../../pipes/user-metric.pipe';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  providers: [UserMetricPipe]
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
@@ -23,7 +25,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
       private weatherService: OpenWeatherService,
-      private notify: MatSnackBar
+      private notify: MatSnackBar,
+      private usersMetricPipe: UserMetricPipe
   ) { }
 
   async ngOnInit() {
@@ -62,11 +65,27 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
         this.loader = false;
-        this.notify.open('Updated...', 'OK', {
+        this.notification = this.notify.open('Updated...', 'OK', {
           duration: 1000
         });
+
+        this.checkThresholds();
       });
     }, 2000);
+  }
+
+  private checkThresholds(){
+    const minThreshold = SettingsService.get().minThreshold;
+    const maxThreshold = SettingsService.get().maxThreshold;
+
+    const currentTemp = parseInt(this.usersMetricPipe.transform(this.oneCall.current.temp.toString()), 10);
+    if (currentTemp >= minThreshold && currentTemp <= maxThreshold){
+      return null;
+    }
+
+    this.notification = this.notify.open('Current Temp breaches thresholds', 'OK', {
+      panelClass: 'error'
+    });
   }
 
   // private async stopApp(e: any){
@@ -84,6 +103,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.intervalSubscription.unsubscribe();
+    if (this.notification){
+      // this.notification.dismiss();
+    }
   }
 
 }

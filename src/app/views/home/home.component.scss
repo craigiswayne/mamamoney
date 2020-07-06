@@ -37,7 +37,6 @@
   top: 1em;
 }
 
-
 #initialLoad {
   position: fixed;
   bottom: 0;
@@ -61,6 +60,12 @@
 
   .temp {
     position: relative;
+
+    .icon {
+      position: absolute;
+      left: -1.5em;
+      top: 0.5em;
+    }
   }
 
   .now {
@@ -119,10 +124,5 @@
     white-space: nowrap;
   }
 }
-
-
-
-
-
 
 

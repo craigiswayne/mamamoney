@@ -2,10 +2,15 @@
 <ng-container *ngIf="oneCall else initialLoad">
     <div id="today">
         <div class="temp">
-            <span class="now">{{ oneCall?.current.temp | userMetric }}</span>
+            <span class="now">
+                {{ oneCall?.current.temp | userMetric }}
+            </span>
+            <span class="icon">
+                <img [src]="oneCall?.current.weather[0].icon | openWeatherIcon" />
+            </span>
             <div class="min-max">
-                <span class="min">{{ oneCall?.daily[0].temp.max | userMetric }}</span>
                 <span class="max">{{ oneCall?.daily[0].temp.min | userMetric }}</span>
+                <span class="min">{{ oneCall?.daily[0].temp.max | userMetric }}</span>
             </div>
         </div>
         <div class="description">{{ oneCall?.current.weather[0].description }}</div>
@@ -15,7 +20,7 @@
                 <div class="icon">
                     <img src="/assets/images/umbrella.png" />
                 </div>
-                <div class="value">56%</div>
+                <div class="value">{{ oneCall?.daily[0].rain * 100 }} %</div>
             </div>
             <div class="wind">
                 <div class="icon">
@@ -28,7 +33,7 @@
                     <img src="/assets/images/sun.png" />
                 </div>
                 <div class="value">
-                    <span>{{ oneCall.current.sunrise | unixDate | date:'HH:mm' }}</span>&nbsp;
+                    <span>{{ oneCall.current.sunrise | unixDate | date:'HH:mm' }}</span>&nbsp;/
                     <span>{{ oneCall.current.sunset | unixDate | date:'HH:mm' }}</span>
                 </div>
             </div>
