@@ -9,3 +9,12 @@
 1. Polling the API was interesting, never did it before
 1. Use of iff and concatMap is new to me, enjoyed playing around with it
 1. Provide design it was based off
+
+
+--------
+
+## Screenshot
+
+_Based of the [Xperial Weather App](src/assets/images/xperia-weather-app.jpg)_
+
+[![screenshot](./src/assets/images/screenshot.png)](https://github.com/craigiswayne/mamamoney)
