@@ -20,9 +20,11 @@ img {
   filter: brightness(0) invert(1);
 }
 
-.mat-snack-bar-container.error {
-  background-color: #EF5350;
-  color: white;
+.mat-snack-bar-container {
+  .error {
+    background-color: $color-error;
+    color: white;
+  }
 
   .mat-simple-snackbar-action {
     color: white;

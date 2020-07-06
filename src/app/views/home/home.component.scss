@@ -1,41 +1,5 @@
 @import "../../../assets/styles/variables";
 
-#forecast {
-  width: 100%;
-  border-collapse: collapse;
-
-  .item {
-    background: rgba(0, 0, 0, 0.1);
-    display: flex;
-    padding: 0.5em 1em;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5em;
-    border-radius: 0.5em;
-    text-align: center;
-    min-height: 70px;
-    font-size: 1.2em;
-
-    > * {
-      flex-basis: 33%;
-
-      &:first-child {
-        text-align: left;
-      }
-
-      &:last-child {
-        text-align: right;
-      }
-    }
-  }
-}
-
-.mat-spinner {
-  position: absolute;
-  right: 1em;
-  top: 1em;
-}
-
 #initialLoad {
   position: fixed;
   bottom: 0;
@@ -97,12 +61,48 @@
   }
 }
 
-.conditions {
+#forecast {
+  width: 100%;
+  border-collapse: collapse;
+
+  .item {
+    background: rgba(0, 0, 0, 0.1);
+    display: flex;
+    padding: 0.5em 1em;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5em;
+    border-radius: 0.5em;
+    text-align: center;
+    min-height: 70px;
+    font-size: 1.2em;
+
+    > * {
+      flex-basis: 33%;
+
+      &:first-child {
+        text-align: left;
+      }
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+}
+
+.mat-spinner {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+}
+
+#conditions {
   margin: 3em 0 1em 0;
   display: flex;
   width: 100%;
 
-  > * {
+  .item {
     flex-basis: 33%;
     padding: 1em;
     text-align: center;
@@ -110,18 +110,16 @@
     &:not(:first-child) {
       border-left: 2px solid rgba(255, 255, 255, 0.6);
     }
-  }
 
-  .icon {
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    margin: auto;
-  }
+    .icon {
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      margin: 0 auto 10px;
+    }
 
-  .value {
-    white-space: nowrap;
+    .value {
+      font-size: 0.85em;
+    }
   }
 }
-
-
