@@ -1,16 +1,15 @@
 # MamaMoney Weather App
 
-1. Stores Data in LocalStorage
-1. Testing passing
 1. 2 Views: Home and Settings
 1. Using OpenWeather Icons on images
-1. `npm run lint` passing
-1. Using Angular Material Library
-1. Polling the API was interesting, never did it before
+1. All Lint Checks Passing: `npm run lint`
+1. Stores Data in LocalStorage
+1. Using Angular Material Library for the Settings Page and the Loader
+1. Polling the API was interesting with rxjs, never did it before... opted to use `setInterval`
 1. Use of iff and concatMap is new to me, enjoyed playing around with it
-1. Provide design it was based off
-1. Did not manage to get the error delay on api request sorted
-1. Issues with custom validator on settings page
+1. Ran into some issues with custom validator on settings page, so opted with a custom check... dirty, not happy with it
+1. No css framework
+1. Site looks best on mobile
 
 --------
 
