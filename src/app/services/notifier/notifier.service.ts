@@ -24,7 +24,8 @@ export class NotifierService {
   }
 
   private log(text: string, options: object, data?: any): MatSnackBarRef<any> {
-    return this.snackBarRef = this.snackBar.open(text, 'OK', options);
+    const action = options['action'] || 'OK';
+    return this.snackBarRef = this.snackBar.open(text, action, options);
   }
 
   public info(text: string, data?: any): MatSnackBarRef<any> {
@@ -38,22 +39,25 @@ export class NotifierService {
     }, data );
   }
 
-  public success(text: string, data?: any): MatSnackBarRef<any> {
-    return this.log(text, {
-      duration: 1500,
-      panelClass: 'success'
-    }, data );
+  public success(text: string, data?: any, options?: {}): MatSnackBarRef<any> {
+    const optionsMerged = { ...{
+        duration: 1500,
+        panelClass: 'success'
+      }, ...options };
+    return this.log(text, optionsMerged, data );
   }
 
-  public error(text: string, data?: any): MatSnackBarRef<any> {
-    return this.log(text, {
+  public error(text: string, data?: any, options?: {}): MatSnackBarRef<any> {
+    const optionsMerged = { ...{
       panelClass: 'error'
-    }, data );
+    }, ...options };
+    return this.log(text, optionsMerged, data );
   }
 
-  public warn(text: string, data?: any): MatSnackBarRef<any> {
-    return this.log(text, {
-      panelClass: 'warn'
-    }, data );
+  public warn(text: string, data?: any, options?: {}): MatSnackBarRef<any> {
+    const optionsMerged = { ...{
+        panelClass: 'warn'
+      }, ...options };
+    return this.log(text, optionsMerged, data );
   }
 }

@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {SettingsService} from '../services/settings/settings.service';
 
-@Pipe({name: 'userMetric'})
-export class UserMetricPipe implements PipeTransform {
-    transform(input: string): string|'?' {
+@Pipe({name: 'weatherMetric'})
+export class WeatherMetricPipe implements PipeTransform {
+    transform(input: string, metric?: 'celsius'|'fahrenheit'): string|'?' {
 
         const kelvin = parseFloat(input);
-        const usersMetric = SettingsService.get().metric;
+        const usersMetric = metric || SettingsService.get().metric;
         let converted = kelvin;
 
         switch ( usersMetric ){

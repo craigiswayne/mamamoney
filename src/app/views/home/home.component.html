@@ -3,18 +3,21 @@
     <div id="today">
         <div class="temp">
             <span class="now">
-                {{ oneCall?.current.temp | userMetric }}
+                {{ oneCall?.current.temp | weatherMetric: usersMetric }}
             </span>
             <span class="icon">
                 <img [src]="oneCall?.current.weather[0].icon | openWeatherIcon" />
             </span>
             <div class="min-max">
-                <span class="max">{{ oneCall?.daily[0].temp.min | userMetric }}</span>
-                <span class="min">{{ oneCall?.daily[0].temp.max | userMetric }}</span>
+                <span class="max">{{ oneCall?.daily[0].temp.min | weatherMetric: usersMetric }}</span>
+                <span class="min">{{ oneCall?.daily[0].temp.max | weatherMetric: usersMetric }}</span>
             </div>
         </div>
         <div class="description">{{ oneCall?.current.weather[0].description }}</div>
-        <div class="real-feel"><span>Real Feel&reg;</span>&nbsp;{{ oneCall?.current.feels_like | userMetric }}</div>
+        <div class="real-feel"><span>Real Feel&reg;</span>&nbsp;{{ oneCall?.current.feels_like | weatherMetric: usersMetric }}</div>
+        <mat-slide-toggle (change)="updateMetric($event)" [checked]="usersMetric === 'fahrenheit'">
+            {{usersMetric}}
+        </mat-slide-toggle>
         <div id="conditions">
             <div class="precipitation item">
                 <div class="icon">
@@ -43,7 +46,7 @@
         <div class="item" *ngFor="let item of oneCall?.daily">
             <span>{{item.dt | unixDate | date:'EEEE'}}</span>
             <span><img [src]="item.weather[0].icon | openWeatherIcon" /></span>
-            <span>{{item.temp.min | userMetric }}/{{item.temp.max | userMetric }}</span>
+            <span>{{item.temp.min | weatherMetric: usersMetric }}/{{item.temp.max | weatherMetric: usersMetric }}</span>
         </div>
     </div>
 </ng-container>

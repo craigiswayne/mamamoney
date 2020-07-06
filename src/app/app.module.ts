@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { UserMetricPipe } from './pipes/user-metric.pipe';
+import { WeatherMetricPipe } from './pipes/weather-metric.pipe';
 import { UnixDatePipe } from './pipes/unix-date.pipe';
 import { HomeComponent } from './views/home/home.component';
 import { SettingsComponent } from './views/settings/settings.component';
@@ -20,11 +20,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserMetricPipe,
+    WeatherMetricPipe,
     UnixDatePipe,
     OpenWeatherIconPipe,
     SettingsComponent,
@@ -42,6 +43,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatOptionModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatSlideToggleModule,
     MatSnackBarModule,
     ReactiveFormsModule,
     RouterModule
