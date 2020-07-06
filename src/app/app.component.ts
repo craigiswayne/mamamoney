@@ -12,7 +12,7 @@ export class AppComponent {
   @HostBinding('class') get cssClass(){
     const now = new Date();
     const hourOfDay = now.getHours();
-    return hourOfDay >= 18 ? 'night' : 'day';
+    return hourOfDay >= 18 || hourOfDay <= 4 ? 'night' : 'day';
   }
   constructor(){}
 }

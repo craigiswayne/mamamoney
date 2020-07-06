@@ -6,6 +6,7 @@ import { concatMap, delay, retryWhen, startWith, switchMap, timeout} from 'rxjs/
 import { SettingsService } from '../../services/settings/settings.service';
 import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
 import {UserMetricPipe} from '../../pipes/user-metric.pipe';
+import {NotifierService} from '../../services/notifier/notifier.service';
 
 @Component({
   selector: 'app-home',
@@ -17,61 +18,56 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public oneCall: OneCall;
   public loader = true;
+  private intervalSubscription;
 
-  private notification: MatSnackBarRef<any>;
-  private errorRetryCounter = 0;
-  private dataSubscription: Subscription;
-  private intervalSubscription: Subscription;
+  private pollDelay = SettingsService.get().refreshIntervalSeconds;
+  private errorDelay = 2;
+  private hasErrorStore = false;
+  private get hasError(): boolean {
+    return this.hasErrorStore;
+  }
+  private set hasError(val: boolean) {
+    this.hasErrorStore = val;
+    if (val) {
+      clearInterval(this.intervalSubscription);
+      this.pollDelay = this.errorDelay = this.errorDelay ** 2;
+      this.poll();
+    } else {
+      this.errorDelay = 2;
+      this.pollDelay = SettingsService.get().refreshIntervalSeconds;
+    }
+  }
 
   constructor(
-      private weatherService: OpenWeatherService,
-      private notify: MatSnackBar,
-      private usersMetricPipe: UserMetricPipe
+    private weatherService: OpenWeatherService,
+    private usersMetricPipe: UserMetricPipe,
+    private notify: NotifierService
   ) { }
 
   async ngOnInit() {
-    await this.fetchData();
-    this.fetchController();
+    this.fetchData();
+    this.poll();
   }
 
-  private async fetchController(){
-    const interVillain = interval(SettingsService.get().refreshIntervalSeconds * 1000);
-    this.intervalSubscription = interVillain.subscribe(() => this.fetchData() );
-  }
-
-  private async fetchData(){
+  private async fetchData() {
     this.loader = true;
+    this.weatherService.get().subscribe((resp: OneCall) => {
+      this.hasError = false;
+      this.oneCall = resp;
+      this.loader = false;
+      this.notify.success('Updated', resp );
+      this.checkThresholds();
+    }, error => {
+      this.loader = false;
+      this.hasError = true;
+      this.notify.error(`An Error Occurred.\nTrying again in ${this.pollDelay} seconds...`, error );
+    });
+  }
 
-    // const retryGuy = retryWhen(errors => errors.pipe(
-    //         // Use concat map to keep the errors in order and make sure they
-    //         // aren't executed in parallel
-    //         concatMap((e, i) =>
-    //             iif(
-    //                 () => this.getAPIErrorThrottle() > 10,
-    //                 this.stopApp(e),
-    //                 of(e).pipe(delay(10000))
-    //             )
-    //         )));
-
-    // this.weatherService.get().pipe(retryGuy).subscribe((resp: OneCall) => {
-    //   this.oneCall = resp;
-    //   this.loader = false;
-    // });
-
-    // Just to illustrate the loader
-    setTimeout(() => {
-      this.weatherService.get().subscribe((resp: OneCall) => {
-        this.oneCall = resp;
-
-
-        this.loader = false;
-        this.notification = this.notify.open('Updated...', 'OK', {
-          duration: 1000
-        });
-
-        this.checkThresholds();
-      });
-    }, 2000);
+  private poll() {
+    this.intervalSubscription = setInterval(() => {
+      this.fetchData();
+    }, this.pollDelay * 1000 );
   }
 
   private checkThresholds(){
@@ -83,28 +79,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       return null;
     }
 
-    this.notification = this.notify.open('Current Temp breaches thresholds', 'OK', {
-      panelClass: 'error'
-    });
+    this.notify.warn('Current Temp breaches thresholds');
   }
 
-  // private async stopApp(e: any){
-  //   console.info('No longer making calls to the api', e);
-  // }
-
-  // private getAPIErrorThrottle(){
-  //   // this.errorRetryCounter = this.errorRetryCounter === 0 ? 2 : this.errorRetryCounter ** 2;
-  //   // // if(this.errorRetryCounter > 100){
-  //   // //   debugger;
-  //   // // }
-  //   // return this.errorRetryCounter * 1000;
-  //   return this.errorRetryCounter++;
-  // }
-
   ngOnDestroy(){
-    this.intervalSubscription.unsubscribe();
-    if (this.notification){
-      // this.notification.dismiss();
+    if (this.intervalSubscription) {
+      clearInterval(this.intervalSubscription);
     }
   }
 

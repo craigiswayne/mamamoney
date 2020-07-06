@@ -15,20 +15,20 @@
         </div>
         <div class="description">{{ oneCall?.current.weather[0].description }}</div>
         <div class="real-feel"><span>Real Feel&reg;</span>&nbsp;{{ oneCall?.current.feels_like | userMetric }}</div>
-        <div class="conditions">
-            <div class="precipitation">
+        <div id="conditions">
+            <div class="precipitation item">
                 <div class="icon">
                     <img src="/assets/images/umbrella.png" />
                 </div>
                 <div class="value">{{ oneCall?.daily[0].rain * 100 }} %</div>
             </div>
-            <div class="wind">
+            <div class="wind item">
                 <div class="icon">
                     <img src="/assets/images/wind.png" />
                 </div>
                 <div class="value">{{ oneCall.current.wind_speed }} m/s</div>
             </div>
-            <div class="sun">
+            <div class="sun item">
                 <div class="icon">
                     <img src="/assets/images/sun.png" />
                 </div>

@@ -18,6 +18,5 @@ export class OpenWeatherService {
 
   public get(): Observable<OneCall>{
     return this.http.get<OneCall>(isDevMode() ? OpenWeatherService.SAMPLE_URL : OpenWeatherService.BASE_URL );
-    // return this.http.get<OneCall>(OpenWeatherService.BASE_URL);
   }
 }

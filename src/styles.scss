@@ -21,9 +21,13 @@ img {
 }
 
 .mat-snack-bar-container {
-  .error {
+  &.error {
     background-color: $color-error;
     color: white;
+  }
+
+  .mat-simple-snackbar {
+    white-space: pre-line;
   }
 
   .mat-simple-snackbar-action {

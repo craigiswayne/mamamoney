@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,20 @@ import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
 export class NotifierService {
 
   private snackBarRef: MatSnackBarRef<any>;
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private snackBar: MatSnackBar, private router: Router) {
+
+    // Close any open notifications when changing urls
+    this.router.events.subscribe(event => {
+
+      if (!(event instanceof NavigationEnd)) {
+        return;
+      }
+
+      if (this.snackBarRef) {
+        this.snackBarRef.dismiss();
+      }
+    });
+  }
 
   private log(text: string, options: object, data?: any): MatSnackBarRef<any> {
     return this.snackBarRef = this.snackBar.open(text, 'OK', options);
